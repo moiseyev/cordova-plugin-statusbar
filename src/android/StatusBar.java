@@ -135,7 +135,7 @@ public class StatusBar extends CordovaPlugin {
                     try {
                         setStatusBarBackgroundColor(args.getString(0));
                         int uiOptions = window.getDecorView().getSystemUiVisibility();
-                        if (args.getString(0) == '#FFFFFF') {
+                        if (args.getString(0) == "#FFFFFF") {
                             uiOptions &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
                         } else {
                             uiOptions |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;

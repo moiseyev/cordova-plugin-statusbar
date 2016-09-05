@@ -60,7 +60,6 @@ public class StatusBar extends CordovaPlugin {
 
                 // Read 'StatusBarBackgroundColor' from config.xml, default is #000000.
                 setStatusBarBackgroundColor("#000000");
-                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             }
         });
     }
@@ -135,6 +134,13 @@ public class StatusBar extends CordovaPlugin {
                 public void run() {
                     try {
                         setStatusBarBackgroundColor(args.getString(0));
+                        int uiOptions = window.getDecorView().getSystemUiVisibility();
+                        if (args.getString(0) == '#FFFFFF') {
+                            uiOptions &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                        } else {
+                            uiOptions |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                        }
+                        window.getDecorView().setSystemUiVisibility(uiOptions);
                     } catch (JSONException ignore) {
                         LOG.e(TAG, "Invalid hexString argument, use f.i. '#777777'");
                     }

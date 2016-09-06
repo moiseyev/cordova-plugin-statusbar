@@ -128,19 +128,36 @@ public class StatusBar extends CordovaPlugin {
             return true;
         }
 
+        if ("styleLightContent".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    int uiOptions = window.getDecorView().getSystemUiVisibility();
+                    uiOptions &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    window.getDecorView().setSystemUiVisibility(uiOptions);
+                }
+            });
+            return true;
+        }
+
+        if ("styleDefault".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    int uiOptions = window.getDecorView().getSystemUiVisibility();
+                    uiOptions |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    window.getDecorView().setSystemUiVisibility(uiOptions);
+                }
+            });
+            return true;
+        }
+
         if ("backgroundColorByHexString".equals(action)) {
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         setStatusBarBackgroundColor(args.getString(0));
-                        int uiOptions = window.getDecorView().getSystemUiVisibility();
-                        if (args.getString(0) == "#FFFFFF") {
-                            uiOptions &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                        } else {
-                            uiOptions |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                        }
-                        window.getDecorView().setSystemUiVisibility(uiOptions);
                     } catch (JSONException ignore) {
                         LOG.e(TAG, "Invalid hexString argument, use f.i. '#777777'");
                     }

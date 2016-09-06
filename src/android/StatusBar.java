@@ -133,7 +133,7 @@ public class StatusBar extends CordovaPlugin {
                 @Override
                 public void run() {
                     int uiOptions = window.getDecorView().getSystemUiVisibility();
-                    uiOptions &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    uiOptions |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
                     window.getDecorView().setSystemUiVisibility(uiOptions);
                 }
             });
@@ -145,7 +145,7 @@ public class StatusBar extends CordovaPlugin {
                 @Override
                 public void run() {
                     int uiOptions = window.getDecorView().getSystemUiVisibility();
-                    uiOptions |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    uiOptions &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
                     window.getDecorView().setSystemUiVisibility(uiOptions);
                 }
             });
